@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_29_052936) do
+ActiveRecord::Schema.define(version: 2021_11_29_054457) do
 
   create_table "forums", force: :cascade do |t|
     t.string "name"
     t.boolean "public"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "forums_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "forum_id", null: false
+    t.index ["forum_id", "user_id"], name: "index_forums_users_on_forum_id_and_user_id"
+    t.index ["user_id", "forum_id"], name: "index_forums_users_on_user_id_and_forum_id"
   end
 
   create_table "users", force: :cascade do |t|
